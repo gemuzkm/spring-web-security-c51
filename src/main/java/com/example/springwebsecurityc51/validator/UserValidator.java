@@ -1,7 +1,7 @@
 package com.example.springwebsecurityc51.validator;
 
+import com.example.springwebsecurityc51.dto.UserDTO;
 import com.example.springwebsecurityc51.entity.User;
-import com.example.springbootc51.dto.UserDTO;
 import com.example.springwebsecurityc51.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

@@ -1,21 +1,19 @@
 package com.example.springwebsecurityc51.controller;
 
 import com.example.springwebsecurityc51.converter.OperationDTOConverter;
+import com.example.springwebsecurityc51.dto.OperationDTO;
 import com.example.springwebsecurityc51.entity.Operation;
-import com.example.springbootc51.dto.OperationDTO;
 import com.example.springwebsecurityc51.entity.User;
 import com.example.springwebsecurityc51.repository.OperationRepository;
 import com.example.springwebsecurityc51.repository.UserRepository;
 import com.example.springwebsecurityc51.service.OperationService;
 import com.example.springwebsecurityc51.service.UserService;
 import com.example.springwebsecurityc51.service.СalculatorService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 @Controller

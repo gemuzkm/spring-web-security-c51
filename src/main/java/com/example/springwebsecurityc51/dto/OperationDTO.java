@@ -1,4 +1,4 @@
-package com.example.springbootc51.dto;
+package com.example.springwebsecurityc51.dto;
 
 import javax.validation.constraints.NotNull;
 

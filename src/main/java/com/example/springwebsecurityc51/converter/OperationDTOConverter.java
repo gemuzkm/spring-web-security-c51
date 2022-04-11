@@ -1,7 +1,7 @@
 package com.example.springwebsecurityc51.converter;
 
+import com.example.springwebsecurityc51.dto.OperationDTO;
 import com.example.springwebsecurityc51.entity.Operation;
-import com.example.springbootc51.dto.OperationDTO;
 import org.springframework.stereotype.Component;
 
 @Component

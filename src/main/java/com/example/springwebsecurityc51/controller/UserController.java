@@ -1,7 +1,7 @@
 package com.example.springwebsecurityc51.controller;
 
+import com.example.springwebsecurityc51.dto.UserDTO;
 import com.example.springwebsecurityc51.entity.User;
-import com.example.springbootc51.dto.UserDTO;
 import com.example.springwebsecurityc51.repository.UserRepository;
 import com.example.springwebsecurityc51.service.UserService;
 import com.example.springwebsecurityc51.validator.UserValidator;
