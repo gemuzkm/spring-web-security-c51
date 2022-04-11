@@ -3,11 +3,12 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Index</title>
+	<div th:insert="fragment/bootstrap :: cdncss"></div>
 </head>
 <body>
-<a href="/calc">Calculator</a>
-<a href="/user/login">Login</a>
-<a href="/user/reg">Registration</a>
+
+<div th:insert="fragment/menu :: top"></div>
+
 <form th:action="@{/logout}" method="post">
 	<button>Logout</button>
 </form>
