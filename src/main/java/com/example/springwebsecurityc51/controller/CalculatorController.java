@@ -50,6 +50,10 @@ public class CalculatorController {
     public String result(@Valid @ModelAttribute("calcOperation") OperationDTO operationDTO,
                          BindingResult bindingResult, Model model) {
 
+        if (bindingResult.hasErrors()) {
+            return "calculator/calc";
+        }
+
         User user = userRepository.findByUsername(userService.getCurrentUsername()).get();
         Operation operation = operationDTOConverter.operationDTOtoOperation(operationDTO);
         operation.setResult(сalculatorService.getResult(operation));
