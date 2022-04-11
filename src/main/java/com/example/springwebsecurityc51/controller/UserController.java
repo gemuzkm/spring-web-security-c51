@@ -31,10 +31,6 @@ public class UserController {
 
     @GetMapping("/users")
     public String showAllUsers(Model model, HttpSession session) {
-        if (session.getAttribute("user") == null) {
-            return "redirect:/";
-        }
-
         model.addAttribute("users", userRepository.findAll());
 
         return "user/users";
@@ -42,24 +38,12 @@ public class UserController {
 
     @GetMapping("/{id}")
     public String showById(@PathVariable("id") long id, Model model) {
-
         Optional<User> optionalUser = userRepository.findById(id);
         User user = optionalUser.orElse(null);
         model.addAttribute("user", user);
 
         return "user/user";
     }
-
-//    @GetMapping("/reg")
-//    public String reg() {
-//        return "reg";
-//    }
-//
-//    @PostMapping("/reg")
-//    public String reg(User user) {
-//        userService.save(user);
-//        return "reg";
-//    }
 
     @GetMapping("/reg")
     public String newUser(@ModelAttribute("user") User user) {
@@ -68,7 +52,6 @@ public class UserController {
 
     @PostMapping("/reg")
     public String create(@ModelAttribute("user") @Valid User user, BindingResult bindingResult, Model model) {
-
         if (bindingResult.hasErrors()) {
             return "user/reg";
         }
