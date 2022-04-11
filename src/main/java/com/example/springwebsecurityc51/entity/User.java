@@ -17,6 +17,12 @@ import java.util.Set;
 @Entity
 @Table(name = "USERS")
 public class User implements UserDetails {
+    private static final String MSG_NAME_EMPTY = "name empty";
+    private static final String MSG_NAME_3_TO_50_CHARACTERS = "name should be between 3 and 50 characters";
+    private static final String MSG_PASSWORD_EMPTY = "password empty";
+    private static final String MSG_PASSWORD_3_TO_50_CHARACTERS = "password should be between 3 and 50 characters";
+    private static final String MSG_EMAIL_EMPTY = "email empty";
+    private static final String MSG_EMAIL_NOT_VALID = "not valid email";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

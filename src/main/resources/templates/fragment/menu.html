@@ -1,17 +1,17 @@
-<div th:fragment="top">
+<div th:fragment="top" xmlns:sec="http://www.w3.org/1999/xhtml">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="/">Home</a>
         <td>
 
-            <div th:unless="${session.user}">
+            <div sec:authorize="isAnonymous()">
                 <a class="navbar-brand" href="/user/login">Authorization</a>
                 <a class="navbar-brand" href="/user/reg">Registration</a>
             </div>
 
-            <div th:if="${session.user}">
+            <div sec:authorize="isAuthenticated()">
                 <a class="navbar-brand" href="/calc">Calculator</a>
                 <a class="navbar-brand" href="/calc/history">History</a>
-                <a class="navbar-brand" th:href="@{'/user/' + ${session.user.getId()}}">Profile</a>
+<!--                <a class="navbar-brand" th:href="@{'/user/' + ${session.user.getId()}}">Profile</a>-->
                 <a class="navbar-brand" href="/user/logout">Logout</a>
             </div>
 
