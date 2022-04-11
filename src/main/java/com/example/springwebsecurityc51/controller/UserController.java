@@ -20,21 +20,29 @@ import java.util.Optional;
 public class UserController {
     private static final String MSG_USER_EXITS = "user exists";
     private static final String MSG_USER_LOGIN_INVALID = "invalid user/login";
+    public static final String PATH_USERS = "user/users";
+    public static final String PATH_USER = "user/user";
+    public static final String PATH_USER_REGISTRATION = "user/reg";
+    public static final String PATH_USER_LOGIN = "user/login";
+    public static final String PATH_INDEX = "user/index";
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
 
-    @Autowired
-    private UserValidator userValidator;
+    private final UserValidator userValidator;
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+
+    public UserController(UserService userService, UserValidator userValidator, UserRepository userRepository) {
+        this.userService = userService;
+        this.userValidator = userValidator;
+        this.userRepository = userRepository;
+    }
 
     @GetMapping("/users")
     public String showAllUsers(Model model, HttpSession session) {
         model.addAttribute("users", userRepository.findAll());
 
-        return "user/users";
+        return PATH_USERS;
     }
 
     @GetMapping("/{id}")
@@ -43,7 +51,7 @@ public class UserController {
         User user = optionalUser.orElse(null);
         model.addAttribute("user", user);
 
-        return "user/user";
+        return PATH_USER;
     }
 
     @GetMapping("/reg")
@@ -54,37 +62,37 @@ public class UserController {
     @PostMapping("/reg")
     public String create(@ModelAttribute("user") @Valid User user, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
-            return "user/reg";
+            return PATH_USER_REGISTRATION;
         }
 
         if (userRepository.findByUsername(user.getName()).isPresent()) {
             model.addAttribute("msgerror", MSG_USER_EXITS);
 
-            return "user/reg";
+            return PATH_USER_REGISTRATION;
         }
 
         userService.save(user);
 
-        return "user/login";
+        return PATH_USER_LOGIN;
     }
 
     @GetMapping("/login")
     public String showLoginPage(@ModelAttribute("user") User user) {
-        return "user/login";
+        return PATH_USER_LOGIN;
     }
 
     @PostMapping("user/login")
     public String login(@ModelAttribute("user") @Valid UserDTO userDTO, BindingResult bindingResult, Model model) {
 
         if (bindingResult.hasErrors()) {
-            return "user/login";
+            return PATH_USER_LOGIN;
         } else if (userValidator.isValid(userDTO)) {
 
         } else {
             model.addAttribute("msgerror", MSG_USER_LOGIN_INVALID);
-            return "user/login";
+            return PATH_USER_LOGIN;
         }
 
-        return "user/index";
+        return PATH_INDEX;
     }
 }

@@ -20,6 +20,9 @@ import javax.validation.Valid;
 @RequestMapping("/calc")
 public class CalculatorController {
 
+    private static final String PATH_CALCULATOR = "calculator/calc";
+    public static final String PATH_HISTORY = "calculator/history";
+
     private final OperationService operationService;
 
     private final СalculatorService сalculatorService;
@@ -43,7 +46,7 @@ public class CalculatorController {
 
     @GetMapping
     public String calc(@ModelAttribute("calcOperation") Operation operation) {
-        return "calculator/calc";
+        return PATH_CALCULATOR;
     }
 
     @PostMapping
@@ -51,7 +54,7 @@ public class CalculatorController {
                          BindingResult bindingResult, Model model) {
 
         if (bindingResult.hasErrors()) {
-            return "calculator/calc";
+            return PATH_CALCULATOR;
         }
 
         User user = userRepository.findByUsername(userService.getCurrentUsername()).get();
@@ -62,7 +65,7 @@ public class CalculatorController {
 
         model.addAttribute("msgResult", operation.getResult());
 
-        return "calculator/calc";
+        return PATH_CALCULATOR;
     }
 
     @GetMapping("/history")
@@ -70,6 +73,6 @@ public class CalculatorController {
 
         model.addAttribute("userHistory", operationRepository.findAllByUser(userService.getCurrentUser()));
 
-        return "calculator/history";
+        return PATH_HISTORY;
     }
 }
