@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>History Operation</title>
+    <div th:insert="fragment/bootstrap :: cdncss"></div>
+</head>
+<body>
+<div th:insert="fragment/menu :: top"></div>
+
+<div th:if="${#lists.isEmpty(userHistory)}">
+    History is empty
+</div>
+
+<table>
+    <div th:each="operation : ${userHistory}">
+        <tr>
+            <td th:text="${operation.value1} + ' ' + ${operation.operation} + ' ' + ${operation.value2} + ' = ' + ${operation.getResult()}">
+                operation
+            </td>
+        </tr>
+    </div>
+</table>
+</body>
+</html>
