@@ -36,22 +36,12 @@ public class CalculatorController {
 
     @GetMapping
     public String calc(@ModelAttribute("calcOperation") Operation operation, HttpSession session) {
-        if (session.getAttribute("user") == null) {
-            return "redirect:/";
-        } else {
-            return "calculator/calc";
-        }
+        return "calculator/calc";
     }
 
     @PostMapping
     public String result(@Valid @ModelAttribute("calcOperation") OperationDTO operationDTO,
                          BindingResult bindingResult, HttpSession session, Model model) {
-
-        if (session.getAttribute("user") == null) {
-            return "redirect:/";
-        } else if (bindingResult.hasErrors()) {
-            return "calculator/calc";
-        }
 
         User user = (User) session.getAttribute("user");
         Operation operation = operationDTOConverter.operationDTOtoOperation(operationDTO);

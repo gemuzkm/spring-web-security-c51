@@ -32,17 +32,16 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-
     @NotNull(message = MSG_NAME_EMPTY)
-    @Size(min = 3, max = 50, message = MSG_NAME_3_TO_50_CHARACTERS)
+//    @Size(min = 3, max = 50, message = MSG_NAME_3_TO_50_CHARACTERS)
     private String name;
 
     @NotNull(message = MSG_NAME_EMPTY)
-    @Size(min = 3, max = 50, message = MSG_NAME_3_TO_50_CHARACTERS)
+//    @Size(min = 3, max = 50, message = MSG_NAME_3_TO_50_CHARACTERS)
     private String username;
 
     @NotNull(message = MSG_PASSWORD_EMPTY)
-    @Size(min = 3, max = 50, message = MSG_PASSWORD_3_TO_50_CHARACTERS)
+//    @Size(min = 3, max = 50, message = MSG_PASSWORD_3_TO_50_CHARACTERS)
     private String password;
 
     @Enumerated(EnumType.STRING)

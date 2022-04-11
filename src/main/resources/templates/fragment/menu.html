@@ -1,20 +1,40 @@
 <div th:fragment="top" xmlns:sec="http://www.w3.org/1999/xhtml">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="/">Home</a>
-        <td>
+
+        <div style="width: 100%; height: 40px;">
+
+            <div style="float: left; width: 80px; ">
+                <a class="navbar-brand" href="/">Home</a>
+            </div>
 
             <div sec:authorize="isAnonymous()">
-                <a class="navbar-brand" href="/user/login">Authorization</a>
-                <a class="navbar-brand" href="/user/reg">Registration</a>
+                <div style="float: left; width: 150px; ">
+                    <a class="navbar-brand" href="/user/login">Authorization</a>
+                </div>
+                <div style="float: left; width: 100px; ">
+                    <a class="navbar-brand" href="/user/reg">Registration</a>
+                </div>
             </div>
 
             <div sec:authorize="isAuthenticated()">
-                <a class="navbar-brand" href="/calc">Calculator</a>
-                <a class="navbar-brand" href="/calc/history">History</a>
-<!--                <a class="navbar-brand" th:href="@{'/user/' + ${session.user.getId()}}">Profile</a>-->
-                <a class="navbar-brand" href="/user/logout">Logout</a>
+
+                <div style="float: left; width: 120px; ">
+                    <a class="navbar-brand" href="/calc">Calculator</a>
+                </div>
+                <div style="float: left; width: 100px;">
+                    <a class="navbar-brand" href="/calc/history">History</a>
+                </div>
+                <div style="float: left; width: 100px; ">
+                    <form class="navbar-brand" th:action="@{/logout}" method="post">
+                        <button>Logout</button>
+                    </form>
+                </div>
+
+                <!--                <a class="navbar-brand" th:href="@{'/user/' + ${session.user.getId()}}">Profile</a>-->
             </div>
 
-        </td>
+        </div>
+
+
     </nav>
 </div>
