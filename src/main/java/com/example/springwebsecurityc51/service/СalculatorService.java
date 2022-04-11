@@ -1,6 +1,6 @@
 package com.example.springwebsecurityc51.service;
 
-import com.example.springbootc51.entity.Operation;
+import com.example.springwebsecurityc51.entity.Operation;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 

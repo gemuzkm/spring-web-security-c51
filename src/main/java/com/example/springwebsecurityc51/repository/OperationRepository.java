@@ -1,7 +1,7 @@
-package com.example.springbootc51.repository;
+package com.example.springwebsecurityc51.repository;
 
-import com.example.springbootc51.entity.Operation;
-import com.example.springbootc51.entity.User;
+import com.example.springwebsecurityc51.entity.Operation;
+import com.example.springwebsecurityc51.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

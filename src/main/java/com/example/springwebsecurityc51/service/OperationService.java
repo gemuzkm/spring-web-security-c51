@@ -1,8 +1,8 @@
 package com.example.springwebsecurityc51.service;
 
-import com.example.springbootc51.entity.Operation;
-import com.example.springbootc51.entity.User;
-import com.example.springbootc51.repository.UserRepository;
+import com.example.springwebsecurityc51.entity.Operation;
+import com.example.springwebsecurityc51.entity.User;
+import com.example.springwebsecurityc51.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
