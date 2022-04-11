@@ -1,6 +1,7 @@
 package com.example.springwebsecurityc51.controller;
 
 import com.example.springwebsecurityc51.entity.User;
+import com.example.springbootc51.dto.UserDTO;
 import com.example.springwebsecurityc51.repository.UserRepository;
 import com.example.springwebsecurityc51.service.UserService;
 import com.example.springwebsecurityc51.validator.UserValidator;
@@ -64,11 +65,26 @@ public class UserController {
 
         userService.save(user);
 
-        return "login";
+        return "user/login";
     }
 
     @GetMapping("/login")
-    public String login() {
-        return "login";
+    public String showLoginPage(@ModelAttribute("user") User user) {
+        return "user/login";
+    }
+
+    @PostMapping("user/login")
+    public String login(@ModelAttribute("user") @Valid UserDTO userDTO, BindingResult bindingResult, Model model) {
+
+        if (bindingResult.hasErrors()) {
+            return "user/login";
+        } else if (userValidator.isValid(userDTO)) {
+
+        } else {
+            model.addAttribute("msgerror", MSG_USER_LOGIN_INVALID);
+            return "user/login";
+        }
+
+        return "user/index";
     }
 }

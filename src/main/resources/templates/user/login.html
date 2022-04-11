@@ -7,33 +7,12 @@
 </head>
 <body>
 <div th:insert="fragment/menu :: top"></div>
-<div th:if="${msgerror}">
-    <p style="color:red" th:text="${msgerror}">invalid user</p>
-</div>
-
-<form th:method="POST" th:action="@{/user/login}" th:object="${user}">
-    <div>
-        <label for="name">Name</label>
-        <input type="text" th:field="*{name}" id="name"/>
-        <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">name error</div>
-
+    <form th:action="@{/user/login}" method="post">
+        <input type="text" name="username" placeholder="Username">
         <br/>
-
-        <label for="password">Password</label>
-        <input type="text" th:field="*{password}" id="password">
-        <div style="color:red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">password error</div>
-
-<!--        <br/>-->
-
-<!--        <label for="email">Email</label>-->
-<!--        <input type="text" th:field="*{email}" id="email">-->
-<!--        <div style="color:red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">email error</div>-->
-
+        <input type="text" name="password" placeholder="Password">
         <br/>
-
-        <input type="submit" value="Login">
-    </div>
-</form>
-
+        <button>Submit</button>
+    </form>
 </body>
 </html>

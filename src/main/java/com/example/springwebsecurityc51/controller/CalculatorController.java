@@ -5,8 +5,11 @@ import com.example.springwebsecurityc51.entity.Operation;
 import com.example.springbootc51.dto.OperationDTO;
 import com.example.springwebsecurityc51.entity.User;
 import com.example.springwebsecurityc51.repository.OperationRepository;
+import com.example.springwebsecurityc51.repository.UserRepository;
 import com.example.springwebsecurityc51.service.OperationService;
+import com.example.springwebsecurityc51.service.UserService;
 import com.example.springwebsecurityc51.service.СalculatorService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -27,27 +30,32 @@ public class CalculatorController {
 
     private final OperationRepository operationRepository;
 
-    public CalculatorController(OperationService operationService, OperationRepository operationRepository, OperationDTOConverter operationDTOConverter, СalculatorService сalculatorService) {
+    private final UserService userService;
+
+    private final UserRepository userRepository;
+
+    public CalculatorController(OperationService operationService, OperationRepository operationRepository, OperationDTOConverter operationDTOConverter, СalculatorService сalculatorService, UserService userService, UserRepository userRepository) {
         this.operationService = operationService;
         this.operationRepository = operationRepository;
         this.operationDTOConverter = operationDTOConverter;
         this.сalculatorService = сalculatorService;
+        this.userService = userService;
+        this.userRepository = userRepository;
     }
 
     @GetMapping
-    public String calc(@ModelAttribute("calcOperation") Operation operation, HttpSession session) {
+    public String calc(@ModelAttribute("calcOperation") Operation operation) {
         return "calculator/calc";
     }
 
     @PostMapping
     public String result(@Valid @ModelAttribute("calcOperation") OperationDTO operationDTO,
-                         BindingResult bindingResult, HttpSession session, Model model) {
+                         BindingResult bindingResult, Model model) {
 
-        User user = (User) session.getAttribute("user");
+        User user = userRepository.findByUsername(userService.getCurrentUsername());
         Operation operation = operationDTOConverter.operationDTOtoOperation(operationDTO);
         operation.setResult(сalculatorService.getResult(operation));
         operation.setUser(user);
-
         operationService.save(user, operation);
 
         model.addAttribute("msgResult", operation.getResult());
@@ -56,15 +64,10 @@ public class CalculatorController {
     }
 
     @GetMapping("/history")
-    public String history(HttpSession session, Model model) {
-        if (session.getAttribute("user") == null) {
-            return "redirect:/";
-        } else {
-            User user = (User) session.getAttribute("user");
-//            model.addAttribute("userHistory", user.getOperationList());
-            model.addAttribute("userHistory",operationRepository.findAllByUser(user));
+    public String history(Model model) {
 
-            return "calculator/history";
-        }
+        model.addAttribute("userHistory", operationRepository.findAllByUser(userService.getCurrentUser()));
+
+        return "calculator/history";
     }
 }
