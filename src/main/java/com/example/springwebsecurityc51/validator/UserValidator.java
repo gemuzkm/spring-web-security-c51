@@ -19,11 +19,11 @@ public class UserValidator {
     }
 
     private boolean isValidUserName(UserDTO userDTO) {
-        return userRepository.findByName(userDTO.getName()).isPresent();
+        return userRepository.findByUsername(userDTO.getName()).isPresent();
     }
 
     private boolean isValidUserPassword(UserDTO userDTO) {
-        Optional<User> byUsername = userRepository.findByName(userDTO.getName());
+        Optional<User> byUsername = userRepository.findByUsername(userDTO.getName());
         User user = byUsername.get();
         return user.getPassword().equals(userDTO.getPassword());
     }

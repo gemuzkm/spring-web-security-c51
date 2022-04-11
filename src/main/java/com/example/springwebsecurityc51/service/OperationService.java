@@ -3,7 +3,6 @@ package com.example.springwebsecurityc51.service;
 import com.example.springwebsecurityc51.entity.Operation;
 import com.example.springwebsecurityc51.entity.User;
 import com.example.springwebsecurityc51.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
@@ -13,10 +12,17 @@ import java.util.List;
 @Repository
 public class OperationService {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
-    public void save(User user, Operation operation) {
+    private final UserService userService;
+
+    public OperationService(UserRepository userRepository, UserService userService) {
+        this.userRepository = userRepository;
+        this.userService = userService;
+    }
+
+    public void save(Operation operation) {
+        User user = userService.getCurrentUser();
         List<Operation> operationList = user.getOperationList();
         operationList.add(operation);
         user.setOperationList(operationList);

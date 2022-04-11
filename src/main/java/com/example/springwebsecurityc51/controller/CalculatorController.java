@@ -52,11 +52,11 @@ public class CalculatorController {
     public String result(@Valid @ModelAttribute("calcOperation") OperationDTO operationDTO,
                          BindingResult bindingResult, Model model) {
 
-        User user = userRepository.findByUsername(userService.getCurrentUsername());
+        User user = userRepository.findByUsername(userService.getCurrentUsername()).get();
         Operation operation = operationDTOConverter.operationDTOtoOperation(operationDTO);
         operation.setResult(сalculatorService.getResult(operation));
         operation.setUser(user);
-        operationService.save(user, operation);
+        operationService.save(operation);
 
         model.addAttribute("msgResult", operation.getResult());
 

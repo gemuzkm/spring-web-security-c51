@@ -57,7 +57,7 @@ public class UserController {
             return "user/reg";
         }
 
-        if (userRepository.findByName(user.getName()).isPresent()) {
+        if (userRepository.findByUsername(user.getName()).isPresent()) {
             model.addAttribute("msgerror", MSG_USER_EXITS);
 
             return "user/reg";
