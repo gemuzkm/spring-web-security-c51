@@ -24,15 +24,10 @@ public class CalculatorController {
     public static final String PATH_HISTORY = "calculator/history";
 
     private final OperationService operationService;
-
     private final СalculatorService сalculatorService;
-
     private final OperationDTOConverter operationDTOConverter;
-
     private final OperationRepository operationRepository;
-
     private final UserService userService;
-
     private final UserRepository userRepository;
 
     public CalculatorController(OperationService operationService, OperationRepository operationRepository, OperationDTOConverter operationDTOConverter, СalculatorService сalculatorService, UserService userService, UserRepository userRepository) {

@@ -27,9 +27,7 @@ public class UserController {
     public static final String PATH_INDEX = "user/index";
 
     private final UserService userService;
-
     private final UserValidator userValidator;
-
     private final UserRepository userRepository;
 
     public UserController(UserService userService, UserValidator userValidator, UserRepository userRepository) {
@@ -70,7 +68,6 @@ public class UserController {
 
             return PATH_USER_REGISTRATION;
         }
-
         userService.save(user);
 
         return PATH_USER_LOGIN;
