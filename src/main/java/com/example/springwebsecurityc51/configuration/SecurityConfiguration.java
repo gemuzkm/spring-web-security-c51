@@ -13,22 +13,21 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Configuration
-@PropertySource("url.property")
+@PropertySource("classpath:publicurl.properties")
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-    private final UserService userService;
-    protected final Environment environment;
+    @Autowired
+    private UserService userService;
 
-    public SecurityConfiguration(UserService userService, Environment environment) {
-        this.userService = userService;
-        this.environment = environment;
-    }
+    @Autowired
+    private Environment env;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers(environment.getProperty("URL_HOME"), environment.getProperty("URL_REGISTRATION"), environment.getProperty("URL_H2_DB")).permitAll()
+//                .antMatchers("/", "/user/reg", "/db/**").permitAll()
+                .antMatchers(env.getProperty("URL_HOME"), env.getProperty("URL_REGISTRATION"), env.getProperty("URL_H2_DB")).permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
