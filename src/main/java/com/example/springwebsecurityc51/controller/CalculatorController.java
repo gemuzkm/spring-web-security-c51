@@ -4,8 +4,6 @@ import com.example.springwebsecurityc51.converter.OperationDTOConverter;
 import com.example.springwebsecurityc51.dto.OperationDTO;
 import com.example.springwebsecurityc51.entity.Operation;
 import com.example.springwebsecurityc51.entity.User;
-import com.example.springwebsecurityc51.repository.OperationRepository;
-import com.example.springwebsecurityc51.repository.UserRepository;
 import com.example.springwebsecurityc51.service.OperationService;
 import com.example.springwebsecurityc51.service.UserService;
 import com.example.springwebsecurityc51.service.СalculatorService;
@@ -26,17 +24,16 @@ public class CalculatorController {
     private final OperationService operationService;
     private final СalculatorService сalculatorService;
     private final OperationDTOConverter operationDTOConverter;
-    private final OperationRepository operationRepository;
     private final UserService userService;
-    private final UserRepository userRepository;
 
-    public CalculatorController(OperationService operationService, OperationRepository operationRepository, OperationDTOConverter operationDTOConverter, СalculatorService сalculatorService, UserService userService, UserRepository userRepository) {
+    public CalculatorController(OperationService operationService,
+                                OperationDTOConverter operationDTOConverter,
+                                СalculatorService сalculatorService,
+                                UserService userService) {
         this.operationService = operationService;
-        this.operationRepository = operationRepository;
         this.operationDTOConverter = operationDTOConverter;
         this.сalculatorService = сalculatorService;
         this.userService = userService;
-        this.userRepository = userRepository;
     }
 
     @GetMapping
@@ -52,7 +49,7 @@ public class CalculatorController {
             return PATH_CALCULATOR;
         }
 
-        User user = userRepository.findByUsername(userService.getCurrentUsername()).get();
+        User user = userService.findByUsername(userService.getCurrentUsername()).get();
         Operation operation = operationDTOConverter.operationDTOtoOperation(operationDTO);
         operation.setResult(сalculatorService.getResult(operation));
         operation.setUser(user);
@@ -65,8 +62,7 @@ public class CalculatorController {
 
     @GetMapping("/history")
     public String history(Model model) {
-
-        model.addAttribute("userHistory", operationRepository.findAllByUser(userService.getCurrentUser()));
+        model.addAttribute("userHistory", operationService.findAllByUser());
 
         return PATH_HISTORY;
     }

@@ -28,4 +28,9 @@ public class OperationService {
         user.setOperationList(operationList);
         userRepository.save(user);
     }
+
+    public List<Operation> findAllByUser() {
+        User user = userService.getCurrentUser();
+        return user.getOperationList();
+    }
 }
