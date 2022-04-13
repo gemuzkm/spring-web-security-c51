@@ -28,24 +28,22 @@ public class UserController {
 
     private final UserService userService;
     private final UserValidator userValidator;
-    private final UserRepository userRepository;
 
-    public UserController(UserService userService, UserValidator userValidator, UserRepository userRepository) {
+    public UserController(UserService userService, UserValidator userValidator) {
         this.userService = userService;
         this.userValidator = userValidator;
-        this.userRepository = userRepository;
     }
 
     @GetMapping("/users")
     public String showAllUsers(Model model, HttpSession session) {
-        model.addAttribute("users", userRepository.findAll());
+        model.addAttribute("users", userService.findAll());
 
         return PATH_USERS;
     }
 
     @GetMapping("/{id}")
     public String showById(@PathVariable("id") long id, Model model) {
-        Optional<User> optionalUser = userRepository.findById(id);
+        Optional<User> optionalUser = userService.findById(id);
         User user = optionalUser.orElse(null);
         model.addAttribute("user", user);
 
@@ -63,7 +61,7 @@ public class UserController {
             return PATH_USER_REGISTRATION;
         }
 
-        if (userRepository.findByUsername(user.getName()).isPresent()) {
+        if (userService.findByUsername(user.getName()).isPresent()) {
             model.addAttribute("msgerror", MSG_USER_EXITS);
 
             return PATH_USER_REGISTRATION;
